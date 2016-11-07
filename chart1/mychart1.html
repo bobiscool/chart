@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="mychart1.css" rel="stylesheet">
+    <script src="myChartsCSS3.js"></script>
+    <script src="data.js"></script>
+
+</head>
+<body>
+<!--首先 -->
+<div id="Ob">
+    <input id="button1" type="button" value="测试">
+    <input id="button2" type="button" value="还原">
+    <div id="Ib">
+        <span class="Ytitle"></span>
+        <span class="Ytitle"></span>
+        <span class="Ytitle"></span>
+        <span class="Ytitle"></span>
+        <span class="Ytitle"></span>
+        <span class="Label Label1"><span class="ColorBlock"></span>出仓未派送量</span>
+        <span class="Label  Label2"><span class="ColorBlock"></span>滞留量</span>
+        <span class="Label Label3"><span class="ColorBlock"></span>未出仓量</span>
+        <div id="Gird">
+            <div id="Yaxis">
+                <span class="Ypoint"></span>
+                <span class="Ypoint"></span>
+                <span class="Ypoint"></span>
+                <span class="Ypoint"></span>
+                <span class="Ypoint"></span>
+            </div>
+            <div id="Xaxis"></div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+<script>
+
+    /*初始化*/
+    var Ogird = document.getElementById('Gird');
+    var AYtitle = document.getElementsByClassName('Ytitle');
+    var ALabel = document.getElementsByClassName('Label');
+    var Obutton1 = document.getElementById('button1');
+    var Obutton2 = document.getElementById('button2');
+    var Oib = document.getElementById('Ib');
+    for (var i = 0; i <= 8; i++) {
+        var temLineX = document.createElement('div');
+        temLineX.className = 'X-line';
+        temLineX.style.top = i * 37.5 + 'px';
+        Ogird.appendChild(temLineX);
+    }
+    for (i = 0; i <= 20; i++) {
+        var temLineY = document.createElement('div');
+        temLineY.className = 'Y-line';
+        temLineY.style.left = i * 30 + 'px';
+        Ogird.appendChild(temLineY);
+    }
+
+    var HistoArray=setChart(Calculate(data1,100));
+    FlyY(100);
+    FlyLabel();
+
+
+    Obutton1.onclick = function () {
+        var Obj = Calculate(data2,80);
+        for(var i =0;i<HistoArray.length;i++){
+            AnimateHisto(HistoArray[i],Obj.arr[i]);
+            HistoArray[i][4].innerHTML = Obj.arr[i].name;
+        }
+        FlyY(80);
+    };
+
+    Obutton2.onclick = function () {
+        var Obj = Calculate(data1,100);
+        for(var i =0;i<HistoArray.length;i++){
+            AnimateHisto(HistoArray[i],Obj.arr[i]);
+            HistoArray[i][4].innerHTML = Obj.arr[i].name;
+        }
+        FlyY(100);
+    };
+
+</script>
+
+</body>
+</html>

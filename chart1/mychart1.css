@@ -1,0 +1,239 @@
+
+/**
+ * Created by wuyiping on 16/11/4.
+ */
+body {
+    /*background-color: #0a1511;*/
+}
+#Ob {
+    position       : relative;
+    margin         : 0 auto;
+    width          : 800px;
+    height         : 400px;
+}
+#Ib {
+
+    display        : inline-block;
+    position: absolute;
+    left:50px;
+    width          : 700px;
+    height         : 400px;
+    background     : #0a1511;
+    border: 1px solid #0a1511;
+}
+
+#button1 {
+    position       : absolute;
+    top            : 0;
+    left           : 0px;
+    display        : inline-block;
+    width          : 50px;
+    height         : 50px;
+    color          : white;
+    font-size      : 20px;
+    line-height    : 50px;
+    text-align     : center;
+    background     : #7a757e;
+}
+
+
+#button2 {
+    position       : absolute;
+    bottom         : 0;
+    left           : 0px;
+    display        : inline-block;
+    width          : 50px;
+    height         : 50px;
+    color          : white;
+    font-size      : 20px;
+    line-height    : 50px;
+    text-align     : center;
+    background     : #7a757e;
+}
+
+
+.Label {
+    display: inline-block;
+    width:120px;
+    height:20px;
+    position: absolute;
+    top:0px;
+    left:0px;
+    font-size: 15px;
+    color: aliceblue;
+    -webkit-transition: opacity 1.5s,left 1.5s;
+    -moz-transition: opacity 1.5s,left 1.5s;
+    -ms-transition: opacity 1.5s,left 1.5s;
+    -o-transition: opacity 1.5s,left 1.5s;
+    transition: opacity 1.5s,left 1.5s;
+}
+
+
+
+.ColorBlock {
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+
+}
+
+.Label1 .ColorBlock {
+    background: #39cfff;
+}
+
+.Label2 .ColorBlock {
+    background: #277cff;
+}
+
+.Label3 .ColorBlock {
+    background: #0d06ff;
+}
+
+.Ytitle {
+    display: inline-block;
+    position: absolute;
+    left:20px;
+    bottom:30px;
+    color: #fff528;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    width:80px;
+    height: 20px;
+    opacity: 0;
+    -webkit-transition: opacity 1.5s,bottom 1.5s;
+    -moz-transition: opacity 1.5s,bottom 1.5s;
+    -ms-transition: opacity 1.5s,bottom 1.5s;
+    -o-transition: opacity 1.5s,bottom 1.5s;
+    transition: opacity 1.5s,bottom 1.5s;
+}
+
+
+.Ypoint {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
+    position: absolute;
+    left: -10px;
+    background-color: orange;
+}
+
+.Ypoint:nth-child(1) {
+    top:0;
+}
+
+.Ypoint:nth-child(2) {
+    top:75px;
+}
+
+.Ypoint:nth-child(3) {
+    top:150px;
+}
+
+.Ypoint:nth-child(4) {
+    top:225px;
+}
+
+.Ypoint:nth-child(5) {
+    top:300px;
+}
+
+
+#Gird {
+    display: inline-block;
+    position: absolute;
+    left: 100px;
+    top: 20px;
+    width:600px;
+    height:300px;
+    background-color: #0a1511;
+}
+
+#Yaxis,.Y-line {
+    position: absolute;
+    left:0;
+    width:1px;
+    height:300px;
+    background: rgba(39, 124, 255, 0.62);
+
+}
+
+#Xaxis,.X-line {
+    position: absolute;
+    left:0;
+    bottom: 0;
+    width:600px;
+    height:1px;
+    background: rgba(39, 124, 255, 0.62);
+}
+
+.Oxtitle {
+     display: inline-block;
+    opacity: 0;
+     position: absolute;
+     bottom:30px;
+    left:100px;
+    width: 20px;
+    height:50px;
+    color:white;
+    font-size:16px;
+    text-align: center;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.Bar {
+    display:inline-block;
+    width:20px;
+    height: 50px;
+    position: absolute;
+    bottom:0;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.Cc {
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    height: 0px;
+    background-color: cyan;
+    -webkit-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -moz-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -ms-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -o-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+}
+
+.Zll {
+    position: absolute;
+    bottom: 20px;
+    width:100%;
+    height: 0px;
+    background: #277cff;
+    -webkit-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -moz-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -ms-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -o-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+}
+
+.Wcc {
+    position: absolute;
+    bottom:30px;
+    width:100%;
+    height: 0px;
+    background: #0d06ff;
+    -webkit-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -moz-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -ms-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    -o-transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+    transition: opacity 0.5s,height 0.5s ,bottom 0.8s;
+}
