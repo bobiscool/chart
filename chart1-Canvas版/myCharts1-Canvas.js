@@ -45,54 +45,71 @@ function DrawXYaxis(context) {
 
 
 
-function SevenAngleStart(Arr,Ymax) {
+function DrawHistoAnimation(Datapx,func,Ymax) {
+    /*执行动画函数*/
+
+    ANIMATION_TIMER1 = setInterval(function () {
+
+        func(Datapx,Ymax);
+        if (HOW_MANY_I_DRAW.length == 15) {//如果全部绘制完毕  就 关闭定时器
+            console.log('绘制完毕');
+            Obutton2.disabled = false;
+            Obutton1.disabled = false;
+            clearInterval(ANIMATION_TIMER1);
+        }
+
+    }, 50);
+
+}
+
+
+function HistoStart(Arr,Ymax) {
     /*根据数据 柱状图*/
     HOW_MANY_I_DRAW =[];
     frontContext.save();
     frontContext.clearRect(0, 0, 800, 600);
-    for (var i = 0; i < Arr.length; i++) {
-        //判断方向
-       var DrecArr=WhoNeedToChange(OLD_DATA[i],Arr[i]);
-        /*这个地方该怎么绘制
-          各自绘制 各自的?
-          那么这个地方应该是我修改参数的地方
-        * */
-        // console.log(DrecArr);
-        if (DrecArr[0]==0&& DrecArr[1]==0&&DrecArr[2]==0) {
-            DrawHisto(Arr[i], frontContext);
-        } else {
-           Arr[i].tgCc+=DrecArr[0];
-           Arr[i].tgWcc+=DrecArr[1];
-           Arr[i].tgZll+=DrecArr[2];
-            DrawHisto(Arr[i], frontContext);
-        }
-    }
-
     DrawTtile(frontContext,Ymax,Arr);
     frontContext.restore();
 
 }
 
-function DrawHisto(histoData, context) {
 
-    var tgWccpx = histoData.tgWcc;
-    var tgZllpx = histoData.tgZll;
-    var tgCcpx = histoData.tgCc;
-    var x = histoData.x;
-    context.beginPath();
-    context.fillStyle = "#00C0E0";
-    context.fillRect(x,500,40,tgCcpx);
-    context.fillStyle = "#006091";
-    context.fillRect(x,500+tgCcpx,40,tgZllpx);
-    context.fillStyle = "#003050";
-    context.fillRect(x,500+tgCcpx+tgZllpx,40,tgWccpx);
+function DrawHisto(x,y,context,h,color) {
 
+     // console.log(x);
+    context.fillStyle = color;
+    context.fillRect(x,y,30,h);
+    context.fill();
 }
 
+function DrawAllHisto(Arr) {
+
+    for (var i = 0; i < Arr.length; i++) {
+
+        var speedCc = EqualsOne((Arr[i].Ccpx - Arr[i].tgCc)/5);
+        var speedWcc = EqualsOne((Arr[i].Wccpx - Arr[i].tgWcc)/5);
+        var speedZll =EqualsOne((Arr[i].Zllpx - Arr[i].tgZll)/5);
+        if(speedCc==0&&speedWcc==0&&speedZll==0){
+            OLD_DATA[i].Ccpx = Arr[i].Ccpx;
+            OLD_DATA[i].Wccpx = Arr[i].Wccpx;
+            OLD_DATA[i].Zllpx = Arr[i].Zllpx;
+            HOW_MANY_I_DRAW.push(Arr[i]);
+            console.log('OK');
+        }
+
+        Arr[i].tgCc +=speedCc;
+        Arr[i].tgWcc +=speedWcc;
+        Arr[i].tgZll +=speedZll;
+        DrawHisto(Arr[i].x,500-Arr[i].tgCc,frontContext,Arr[i].tgCc,"#F0FFC9");
+        DrawHisto(Arr[i].x,500-Arr[i].tgCc-Arr[i].tgWcc,frontContext,Arr[i].tgWcc,"#A9DA88");
+        DrawHisto(Arr[i].x,500-Arr[i].tgCc-Arr[i].tgWcc-Arr[i].tgZll,frontContext,Arr[i].tgZll,"#62997A");
+
+    }
+}
 
 function DrawTtile(context,Ymax,Arr) {
     // 绘制标题 动画
-    if((TITLE_TICK.n<50)&&!TITLE_TICK.onoff){
+    if((TITLE_TICK.n<=50)&&!TITLE_TICK.onoff){
         for(var i =0;i<5;i++){
             context.beginPath();
             context.font="20px bold";
@@ -104,15 +121,26 @@ function DrawTtile(context,Ymax,Arr) {
         for(i=0;i<Arr.length;i++){
 
             context.font="20px";
-            context.fillStyle = "rgba(255,255,255,"+ UseIandN(i,TITLE_TICK.n)+")";//逐渐显示出来
+            context.fillStyle = "rgba(255,255,255,"+ TITLE_TICK.n/50+")";//逐渐显示出来
             for(var j =0;j<Arr[i].name.length;j++){
                 context.fillText(Arr[i].name.charAt(j),160+TITLE_TICK.n*((40*i)/50),520+20*j);// 保证竖向绘制字体
             }
 
+            Arr[i].x = 160+TITLE_TICK.n*((40*i)/50);
+
+        }
+        context.restore();
+        context.save();
+        for(i=0;i<3;i++){
+            context.font="20px bold";
+            context.fillStyle = "rgba(255,255,255,"+ TITLE_TICK.n/50+")";//逐渐显示出来
+            context.fillText(LABEL[i].name,240+TITLE_TICK.n*((150*i)/50),30);
+            context.fillStyle = LABEL[i].color+ TITLE_TICK.n/50+")";//逐渐显示出来
+            context.fillRect(190+TITLE_TICK.n*((150*i)/50),15,40,20);
         }
         context.restore();
 
-        TITLE_TICK.n++;
+        TITLE_TICK.n+=2;
 
         context.stroke();
     }else{
@@ -130,29 +158,25 @@ function DrawTtile(context,Ymax,Arr) {
             for( j =0;j<Arr[i].name.length;j++){
                 context.fillText(Arr[i].name.charAt(j),160+40*i,520+20*j);// 保证竖向绘制字体
             }
+            Arr[i].x = 160+40*i;
+        }
+        context.save();
+        for(i=0;i<3;i++){
+            context.font="20px bold";
+            context.fillStyle = "rgba(255,255,255,"+ TITLE_TICK.n/50+")";//逐渐显示出来
+            context.fillText(LABEL[i].name,240+(150*i),30);
+            context.fillStyle = LABEL[i].color+ TITLE_TICK.n/50+")";//逐渐显示出来
+            context.fillRect(190+(150*i),15,40,20);
 
         }
+        context.restore();
+
+        DrawAllHisto(Arr);
         context.restore();
         context.stroke();
     }
 
-}
 
-
-function DrawTrangleAnimation(Datapx,func,Ymax) {
-    /*执行动画函数*/
-
-    ANIMATION_TIMER1 = setInterval(function () {
-
-        func(Datapx,Ymax);
-        if (HOW_MANY_I_DRAW.length == 7) {//如果全部绘制完毕  就 关闭定时器
-            console.log('绘制完毕');
-            Obutton2.disabled = false;
-            Obutton1.disabled = false;
-            clearInterval(ANIMATION_TIMER1);
-        }
-
-    }, 50);
 
 }
 
@@ -195,62 +219,23 @@ var temArr =[];
     return temArr;
 }
 
-function SevenAngleMove(Arr,Ymax) {
-    /*根据数据 画出七个 三角形*/
-    HOW_MANY_I_DRAW =[];
-    frontContext.save();
-    frontContext.clearRect(0, 0, 800, 600);
 
-    for (var i = 0; i < Arr.length; i++) {
-        //判断方向
-        var Drec = DrawDirection(OLD_DATA[i].height,Arr[i].valuePx);
-        var temNum = (OLD_DATA[i].n-Arr[i].valuePx)/10;
-        if(Drec>0&&temNum>0){
-            temNum = temNum<1?1:temNum;
-            DrawTrangle(OLD_DATA[i], frontContext);
-            OLD_DATA[i].n-=temNum;
-        } else if(temNum<=0&&Drec<=0) {
-            temNum = temNum>-1?-1:temNum;
-            DrawTrangle(OLD_DATA[i], frontContext);
-            OLD_DATA[i].n-=temNum;
-        }else {
-            HOW_MANY_I_DRAW.push(OLD_DATA[i]);
-            DrawTrangle(OLD_DATA[i], frontContext);
-            OLD_DATA[i].height = Arr[i].valuePx;
-
-        }
+function EqualsOne(a) {// 误差判断  如果很接近了 那就直接停止运动
+    if(a<0&&a>-1&&a<-0.1){
+        a=-1;
     }
 
-
-    DrawTtile(frontContext,Ymax);
-    frontContext.restore();
-}
-
-function WhoNeedToChange(OLD,NEW) {
-    var temArr = [];
-    var temArr2 = ['Ccpx','Zllpx','Wccpx'];
-    for(var i in temArr2){
-        // console.log(OLD[temArr2[i]]-NEW[temArr2[i]]);
-        if((OLD[temArr2[i]]-NEW[temArr2[i]])>0){
-            temArr.push(-1);
-        }
-
-        if((OLD[temArr2[i]]-NEW[temArr2[i]])<0){
-            temArr.push(1);
-        }
-
-        if((OLD[temArr2[i]]-NEW[temArr2[i]])==0){
-            temArr.push(0);
-        }
+    if(a<0&&a>-1&&a>=-0.1){
+        a=0;
     }
 
-    console.log(temArr);
-    return temArr;
+    if(a>0&&a<1&&a>0.1){
+        a=1;
+    }
+
+    if(a>0&&a<1&&a<=0.1){
+        a=0;
+    }
+    return a;
 }
 
-
-function UseIandN(i,n) {
-    //使用 i和n计算当前 透明度
-    var temNum=(n*(15-i))/50>1?1:0;
-    return temNum;
-}

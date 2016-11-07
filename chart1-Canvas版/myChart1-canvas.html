@@ -27,6 +27,10 @@
         #button2 {
             top:550px;
         }
+
+        input:disabled {
+            color: #0a1511;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +58,8 @@
     var ANIMATION_TIMER1= null;
     var HOW_MANY_I_DRAW = [];
     var TITLE_TICK = {onoff:false,n:0};
+    var LABEL =[{name:'未出仓量',color:'rgba(169,218,136,'},{name:"滞留量",color:"rgba(98,153,122,"},{name:"出仓未派送",color:"rgba(240,255,201,"}];
+
 
     Obutton2.disabled = true;
 
@@ -61,17 +67,17 @@
 
 
     DrawXYaxis(backContext);// 画坐标轴
-    DrawTrangleAnimation(Calculate(data1,100),SevenAngleStart,100);
+    DrawHistoAnimation(Calculate(data1,100),HistoStart,100);
 
     Obutton1.onclick = function(){
-        DrawTrangleAnimation(CalculateData(dataCanvas1,100),SevenAngleMove,80);
+        DrawHistoAnimation(Calculate(data2,100),HistoStart,100);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
 
     };
 
     Obutton2.onclick = function(){
-        DrawTrangleAnimation(CalculateData(dataCanvas2,1000),SevenAngleMove,100);
+        DrawHistoAnimation(Calculate(data3,80),HistoStart,80);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
     };
