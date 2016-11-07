@@ -118,17 +118,18 @@ function DrawTtile(context,Ymax,Arr) {
 
         }
         context.save();
-        for(i=0;i<Arr.length;i++){
+        for(i=0;i<Math.ceil(TITLE_TICK.n/3.33)-1;i++){
 
             context.font="20px";
             context.fillStyle = "rgba(255,255,255,"+ TITLE_TICK.n/50+")";//逐渐显示出来
             for(var j =0;j<Arr[i].name.length;j++){
-                context.fillText(Arr[i].name.charAt(j),160+TITLE_TICK.n*((40*i)/50),520+20*j);// 保证竖向绘制字体
+                context.fillText(Arr[i].name.charAt(j),160+(40*i),520+20*j);// 保证竖向绘制字体
             }
 
-            Arr[i].x = 160+TITLE_TICK.n*((40*i)/50);
-
+            Arr[i].x = 160+(40*i);
+            DrawAllHisto([Arr[i]]);
         }
+
         context.restore();
         context.save();
         for(i=0;i<3;i++){
