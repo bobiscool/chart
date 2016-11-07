@@ -93,6 +93,7 @@ function DrawAllHisto(Arr) {
             OLD_DATA[i].Ccpx = Arr[i].Ccpx;
             OLD_DATA[i].Wccpx = Arr[i].Wccpx;
             OLD_DATA[i].Zllpx = Arr[i].Zllpx;
+            OLD_DATA[i].x = Arr[i].x;
             HOW_MANY_I_DRAW.push(Arr[i]);
             console.log('OK');
         }
@@ -240,3 +241,219 @@ function EqualsOne(a) {// 误差判断  如果很接近了 那就直接停止运
     return a;
 }
 
+
+function WhoIMeet(X,Y) {//检查 我遇见了那个方块
+    for(var i in OLD_DATA){
+        if(OLD_DATA[i].x<=X&&X<=(OLD_DATA[i].x+30)){
+            if(Y<=500&&Y>=(500-OLD_DATA[i].Ccpx)){
+                return (500-Y)/400*YMAX;
+            }
+
+            if(Y<500-OLD_DATA[i].Ccpx&&Y>=(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)){
+                return (500-Y-OLD_DATA[i].Ccpx)/400*YMAX;
+            }
+
+            if(Y<(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)&&Y>=(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Zllpx-OLD_DATA[i].Wccpx)){
+                return (500-Y-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)/400*YMAX;
+            }
+        }
+    }
+
+}
+
+/*此数据为系统数据 不需要用户更改 */
+var OLD_DATA = [{
+    name: '河南营业厅',
+    x:0,
+    Wcc: '10',
+    Zll: '20',
+    Cc: '60',
+    Wccpx: 0,
+    Zllpx: 0,
+    Ccpx: 0,
+    tgWcc: 0,
+    tgZll: 0,
+    tgCc: 0
+},
+    {
+        name: '河北营业厅',
+        x:0,
+        Wcc: '14',
+        Zll: '25',
+        Cc: '45',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '南昌营业厅',
+        x:0,
+        Wcc: '14',
+        Zll: '13',
+        Cc: '23',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '广西营业厅',
+        x:0,
+        Wcc: '19',
+        Zll: '22',
+        Cc: '58',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '广东营业厅',
+        x:0,
+        Wcc: '9',
+        Zll: '20',
+        Cc: '67',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '福建营业厅',
+        x:0,
+        Wcc: '8',
+        Zll: '27',
+        Cc: '45',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '青海营业厅',
+        x:0,
+        Wcc: '23',
+        Zll: '10',
+        Cc: '25',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '宁夏营业厅',
+        x:0,
+        Wcc: '9',
+        Zll: '10',
+        Cc: '30',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '西藏营业厅',
+        x:0,
+        Wcc: '9',
+        Zll: '20',
+        Cc: '31',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '新疆营业厅',
+        x:0,
+        Wcc: '25',
+        Zll: '26',
+        Cc: '27',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '湖北营业厅',
+        x:0,
+        Wcc: '16',
+        Zll: '24',
+        Cc: '49',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '四川营业厅',
+        x:0,
+        Wcc: '10',
+        Zll: '20',
+        Cc: '50',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '山东营业厅',
+        x:0,
+        Wcc: '4',
+        Zll: '21',
+        Cc: '60',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '安徽营业厅',
+        x:0,
+        Wcc: '11',
+        Zll: '22',
+        Cc: '40',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    },
+    {
+        name: '湖南营业厅',
+        x:0,
+        Wcc: '17',
+        Zll: '18',
+        Cc: '56',
+        Wccpx: 0,
+        Zllpx: 0,
+        Ccpx: 0,
+        tgWcc: 0,
+        tgZll: 0,
+        tgCc: 0
+    }];

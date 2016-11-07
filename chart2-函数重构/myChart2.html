@@ -64,17 +64,17 @@
 
 
     DrawXYaxis(backContext);// 画坐标轴
-    DrawTrangleAnimation(OLD_DATA,SevenAngleStart,100);
+    DrawTrangleAnimation(CalculateData(dataCanvas3,100),TrangleAnimation,100);
 
     Obutton1.onclick = function(){
-        DrawTrangleAnimation(CalculateData(dataCanvas1,100),SevenAngleMove,80);
+        DrawTrangleAnimation(CalculateData(dataCanvas1,100),TrangleAnimation,100);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
 
     };
 
     Obutton2.onclick = function(){
-        DrawTrangleAnimation(CalculateData(dataCanvas2,1000),SevenAngleMove,100);
+        DrawTrangleAnimation(CalculateData(dataCanvas2,1000),TrangleAnimation,1000);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
     };

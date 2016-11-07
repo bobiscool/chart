@@ -31,6 +31,31 @@
         input:disabled {
             color: #0a1511;
         }
+
+        #Label {
+            position: absolute;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 15px;
+            text-align: center;
+            line-height: 20px;
+            width:40px;
+            height: 20px;
+            display: none;
+        }
+
+        #Line {
+            position: absolute;
+            right:40px;
+            top:10px;
+            height: 1px;
+            background: red;
+            opacity: 0.7;
+        }
+
+
+        #Text {
+        }
     </style>
 </head>
 <body>
@@ -38,7 +63,10 @@
 <canvas id="frontground"></canvas>
 <input id="button1" type="button" value="测试1">
 <input id="button2" type="button" value="测试2">
-
+<div id="Label">
+    <span id="Text"></span>
+    <div id="Line"><div>
+</div>
 
 <script src="myCharts1-Canvas.js" type="text/javascript"></script>
 <script src="data1-Canvas.js" type="text/javascript"></script>
@@ -48,13 +76,16 @@
     var frontground = document.getElementById('frontground');
     var Obutton1 = document.getElementById('button1');
     var Obutton2 = document.getElementById('button2');
+    var Olabel = document.getElementById('Label');
+    var Oline = document.getElementById('Line');
+    var OText = document.getElementById('Text');
     background.width = 800;
     background.height = 600;
     frontground.width = 800;
     frontground.height = 600;
     var backContext =background.getContext('2d');
     var frontContext =frontground.getContext('2d');
-
+    var YMAX = 100;
     var ANIMATION_TIMER1= null;
     var HOW_MANY_I_DRAW = [];
     var TITLE_TICK = {onoff:false,n:0};
@@ -67,9 +98,10 @@
 
 
     DrawXYaxis(backContext);// 画坐标轴
-    DrawHistoAnimation(Calculate(data1,100),HistoStart,100);
+    DrawHistoAnimation(Calculate(data1,YMAX),HistoStart,YMAX);
 
     Obutton1.onclick = function(){
+        YMAX = 100;
         DrawHistoAnimation(Calculate(data2,100),HistoStart,100);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
@@ -77,10 +109,33 @@
     };
 
     Obutton2.onclick = function(){
-        DrawHistoAnimation(Calculate(data3,80),HistoStart,80);
+        YMAX = 80;
+        DrawHistoAnimation(Calculate(data3,YMAX),HistoStart,YMAX);
         Obutton2.disabled = true;
         Obutton1.disabled = true;
     };
+    
+    frontground.addEventListener('mousemove',function (e) {
+
+        var ev = e||window.event;
+        var Rect = this.getBoundingClientRect();
+        var mouseX = ev.clientX-Rect.left;//获取鼠标Canvas坐标
+        var mouseY = ev.clientY-Rect.top;
+
+        var temNum = WhoIMeet(mouseX,mouseY);
+        console.log(temNum);
+        if(typeof temNum == "number"){
+            Olabel.style.display = "block";
+            Olabel.style.left = ev.clientX+10+'px';
+            Olabel.style.top = ev.clientY-10+'px';
+            Oline.style.width = mouseX-150+'px';
+            OText.innerHTML = parseFloat(temNum).toFixed(2);
+        }else {
+            Olabel.style.display = "none";
+        }
+
+
+    })
 
 </script>
 </body>
