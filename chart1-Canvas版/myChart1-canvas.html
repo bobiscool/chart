@@ -39,14 +39,14 @@
             font-size: 15px;
             text-align: center;
             line-height: 20px;
-            width:40px;
+            width:90px;
             height: 20px;
             display: none;
         }
 
         #Line {
             position: absolute;
-            right:40px;
+            right:90px;
             top:10px;
             height: 1px;
             background: red;
@@ -124,12 +124,12 @@
 
         var temNum = WhoIMeet(mouseX,mouseY);
         console.log(temNum);
-        if(typeof temNum == "number"){
+        if(typeof temNum != "undefined"){
             Olabel.style.display = "block";
             Olabel.style.left = ev.clientX+10+'px';
             Olabel.style.top = ev.clientY-10+'px';
             Oline.style.width = mouseX-150+'px';
-            OText.innerHTML = parseFloat(temNum).toFixed(2);
+            OText.innerHTML ='<span style="color: aliceblue">'+parseFloat(temNum[0]).toFixed(2)+'</span>'+"&nbsp;"+'<span style="color: red">'+parseFloat(temNum[1]).toFixed(2)+'</span>';
         }else {
             Olabel.style.display = "none";
         }

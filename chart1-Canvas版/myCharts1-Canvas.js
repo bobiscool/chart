@@ -18,7 +18,7 @@
 * */
 
 
-function DrawXYaxis(context) {
+function DrawXYaxis(context){
     // 绘制坐标轴
     context.fillStyle = '#201111';
     context.fillRect(0, 0, 800, 600);//画出背景
@@ -90,10 +90,13 @@ function DrawAllHisto(Arr) {
         var speedWcc = EqualsOne((Arr[i].Wccpx - Arr[i].tgWcc)/5);
         var speedZll =EqualsOne((Arr[i].Zllpx - Arr[i].tgZll)/5);
         if(speedCc==0&&speedWcc==0&&speedZll==0){
-            OLD_DATA[i].Ccpx = Arr[i].Ccpx;
-            OLD_DATA[i].Wccpx = Arr[i].Wccpx;
-            OLD_DATA[i].Zllpx = Arr[i].Zllpx;
-            OLD_DATA[i].x = Arr[i].x;
+            for(var j in Arr[i]){
+                OLD_DATA[i][j]=Arr[i][j];
+            }
+            // OLD_DATA[i].Ccpx = Arr[i].Ccpx;
+            // OLD_DATA[i].Wccpx = Arr[i].Wccpx;
+            // OLD_DATA[i].Zllpx = Arr[i].Zllpx;
+            // OLD_DATA[i].x = Arr[i].x;
             HOW_MANY_I_DRAW.push(Arr[i]);
             console.log('OK');
         }
@@ -246,15 +249,15 @@ function WhoIMeet(X,Y) {//检查 我遇见了那个方块
     for(var i in OLD_DATA){
         if(OLD_DATA[i].x<=X&&X<=(OLD_DATA[i].x+30)){
             if(Y<=500&&Y>=(500-OLD_DATA[i].Ccpx)){
-                return (500-Y)/400*YMAX;
+                return [(500-Y)/400*YMAX,(500-Y)/400*YMAX];
             }
 
             if(Y<500-OLD_DATA[i].Ccpx&&Y>=(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)){
-                return (500-Y-OLD_DATA[i].Ccpx)/400*YMAX;
+                return [(500-Y-OLD_DATA[i].Ccpx)/400*YMAX,(500-Y)/400*YMAX];
             }
 
             if(Y<(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)&&Y>=(500-OLD_DATA[i].Ccpx-OLD_DATA[i].Zllpx-OLD_DATA[i].Wccpx)){
-                return (500-Y-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)/400*YMAX;
+                return [(500-Y-OLD_DATA[i].Ccpx-OLD_DATA[i].Wccpx)/400*YMAX,(500-Y)/400*YMAX];
             }
         }
     }
